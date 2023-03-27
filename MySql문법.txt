@@ -1,0 +1,178 @@
+SQL	--한줄주석 /* 여러줄 */
+
+SELECT column1, column2 AS alias_name, ...
+	CONCAT_WS(', ', Address, City, Country) AS Address
+FROM table_name
+WHERE condition LIKE pattern IN (SELECT STATEMENT)
+		IN (SELECT column FROM table_name)
+		BETWEEN value1 AND value2;
+ORDER BY column1, column2, ... ASC|DESC
+LIMIT number;
+
+SELECT		데이터베이스에서 데이터 추출
+	DISTINCT 	고유한 값만 선택
+	MIN( )		열의 가장 작은 값을 반환
+	MAX( )		열의 가장 큰 값을 반환
+	COUNT( )	일치하는(NULL제외) 행 수를 반환
+	AVG( )		열의 평균 값을 반환
+	SUM( )		열의 총 합계를 반환
+	AS		임시이름 지정(쿼리기간)
+
+WHERE		지정된 조건을 충족하는 레코드만 추출
+	연산자	=,<,>,<>(Not equal) BETWEEN LIKE IN
+	IS NULL(빈값) 	IS NOT NULL(비지 않은 값)
+	LIKE	지정된 패턴을 검색, 와일드카드 % _
+	IN	여러 조건
+
+ORDER BY  	오름차(ASC)순 또는 내림차(DESC)순으로 정렬
+
+LIMIT		반환할 레코드 수를 지정
+
+
+INSERT INTO table_name (column1, column2, column3, ...)
+VALUES (value1, value2, value3, ...);
+
+INSERT INTO	테이블에 새 레코드를 삽입
+
+
+UPDATE table_name
+SET column1 = value1, column2 = value2, ...
+WHERE condition;
+
+UPDATE		테이블의 기존 레코드를 수정
+DELETE		테이블의 기존 레코드를 삭제
+  WHERE 없으면 모든행 삭제, 테이블 구조, 속성 및 인덱스는 유지
+
+SELECT Orders.OrderID, Customers.CustomerName, Orders.OrderDate
+FROM Orders
+INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+
+JOIN	두 개 이상의 테이블 사이의 관련 열을 기반으로 행을 결합
+INNER JOIN	두 테이블에서 일치하는 값이 있는 레코드를 반환
+LEFT(RIGHT) JOIN	왼쪽(오른쪽) 테이블의 모든 레코드를 반환하고,1 
+		오른쪽(왼쪽) 테이블의 일치하는 레코드를 반환
+CROSS JOIN	두 테이블(table1 및 table2)의 모든 레코드를 반환
+SELF JOIN 	?????
+
+
+SELECT column_name(s) FROM table1
+UNION ALL
+SELECT column_name(s) FROM table2
+GROUP BY column_name(s)
+HAVING condition
+
+UNION (ALL)	둘 이상의 명령문의 결과 집합을 결합 (중복값 허용)
+	SELECT내의 모든 명령문에는 UNION동일한 수의 열이 있어야 함.
+	열의 데이터 유형도 유사해야 함.
+	모든 명령문의 열도 SELECT동일한 순서여야 함
+GROUP BY	동일한 값을 가진 행을 요약 행으로 그룹화
+	집계 함수와 함께 사용되어 결과 집합을 하나 이상의 열로 그룹화
+HAVING	??	키워드를 집계 함수와 함께 사용할 수 없기 때문에 추가
+
+
+SELECT column_name(s)
+FROM table_name
+WHERE EXISTS
+WHERE column_name operator ANY
+(SELECT column_name FROM table_name WHERE condition);
+
+EXISTS		하위 쿼리에 레코드가 있는지 테스트,  TRUE 반환
+ANY(SOME?)	하위 쿼리 값 중 하나라도 조건을 충족시 TRUE를 반환
+ALL		모든 하위 쿼리 값이 조건 충족시 TRUE 반환
+
+
+INSERT INTO table2 (column1, column2, column3, ...)
+SELECT column1, column2, column3, ...
+FROM table1
+WHERE condition;
+
+INSERT INTO SELECT	테이블에서 데이터를 복사하여 다른 테이블에 삽입
+
+
+SELECT OrderID, Quantity,
+CASE
+    WHEN Quantity > 30 THEN 'The quantity is greater than 30'
+    WHEN Quantity = 30 THEN 'The quantity is 30'
+    ELSE 'The quantity is under 30'
+END AS QuantityText
+FROM OrderDetails;
+
+CASE	조건을 통과하고 첫 번째 조건이 충족되면 값을 반환
+
+
+SELECT ProductName, UnitPrice * (UnitsInStock + IFNULL(UnitsOnOrder, 0))
+FROM Products;
+
+IFNULL( )	  COALESCE( )	표현식이 NULL인 경우 대체 값을 반환(0)
+	
+
+
+DATABASE
+
+CREATE DATABASE databasename;
+DROP DATABASE databasename;
+
+CREATE DATABASE	새로운 데이터베이스 생성
+DROP DATABASE 		기존 SQL 데이터베이스를 삭제
+ALTER DATABASE	데이터베이스 수정
+
+
+CREATE TABLE Persons (		CREATE TABLE new_table_name AS
+    PersonID int,			  SELECT column1, column2,...
+    LastName varchar(255),		  FROM existing_table_name
+    FirstName varchar(255),		  WHERE ....;
+    AGE varchar(255),
+    CHECK (Age>=18)
+    City varchar(255) DEFAULT 'Sandnes'
+);
+
+CREATE TABLE	새로운 테이블 생성
+DROP TABLE	테이블 삭제
+TRUNCATE TABLE	테이블 내부의 데이터만 삭제
+CHECK 		<테이블> 열에 배치할 수 있는 값 범위를 제한
+DEFAULT		열의 기본값을 설정
+
+
+ALTER TABLE Customers
+ADD Email varchar(255)S
+DROP COLUMN Email
+MODIFY Age int NOT NULL
+UNIQUE (ID)
+//CONSTRAINT UC_Person UNIQUE (ID,LastName);
+
+ALTER TABLE	테이블 수정
+MODIFY		테이블이 이미 생성된 경우 열에 제약조건 생성
+제약조건 ADD<제약이름>, DROP<제약이름> 
+NOT NULL	열이 NULL 값을 가질 수 없도록 합니다.
+UNIQUE		열의 모든 값이 다른지 확인
+
+
+CREATE INDEX idx_pname
+ON Persons (LastName, FirstName);
+
+CREATE INDEX	색인 생성(검색 키)
+DROP INDEX	색인을 삭제
+CONSTRAINT	여러열에 UNIQUE 제약조건 정의
+
+
+CREATE TABLE Orders (
+    OrderID int NOT NULL,
+    Personid int NOT NULL AUTO_INCREMENT,
+    ALTER TABLE Persons AUTO_INCREMENT=100;	//시퀀스 시작값
+    PRIMARY KEY (OrderID),
+    FOREIGN KEY (PersonID) REFERENCES Persons(PersonID)
+//  CONSTRAINT FK_PersonOrder FOREIGN KEY (PersonID)
+//  REFERENCES Persons(PersonID)
+);
+
+AUTO_INCREMENT	자동 증가
+PRIMARY KEY	NOT NULL + UNIQUE)테이블의 각 행을 고유하게 식별
+FOREIGN KEY	테이블 간의 링크를 파괴하는 행위를 방지
+
+
+CREATE VIEW [Products Above Average Price] AS
+SELECT ProductName, Price
+FROM Products
+WHERE Price > (SELECT AVG(Price) FROM Products);
+
+CREATE VIEW	가상 테이블 만

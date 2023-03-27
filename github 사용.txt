@@ -1,0 +1,23 @@
+git hub
+
+cmd 해당폴더이동
+
+git init
+git add .
+git commit -m "v1.0"
+
+
+// Repositories readme없이 만들었을떄 3줄나옴
+git commit -m "Repositories"
+git remote add origin https://github.com/id/Repositories.git
+git branch -M main
+
+java
+
+git add .
+git commit -m "Repositories"
+git push -u origin main
+
+
+
+D:\react\my-app

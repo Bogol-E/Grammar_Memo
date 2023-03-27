@@ -1,0 +1,32 @@
+Object 클래스
+toString( )		인스턴스에 대한 정보(클래스이름@인스턴스ID) 반환 
+equals( )		두 개의 참조변수가 같은 인스턴스를 참조하는지(동일객체) 판단
+hashCode( )	메모리에 생성된 인스턴스의 주소값을 일련번호로 반환
+getClass( )	Class 타입의 인스턴스를 생성해 반환
+
+열거클래스 Enum
+name( )		열거 상수의 이름 반환
+toString( )		name( ) 메서드와 동일
+ordinal( )		열거 상수의 선언된 위치값을 반환
+compareTo( )	열거 상수의 상대적 위치를 구함
+valueOf		인자로 지정한 이름의 열거 상수를 반환
+calues( )		모든 열거 상수 반환
+
+String 클래스
+유일하게 new가 아닌 " " 로 객체 생성 가능
+equals( )		문자열이 같으면 true, 다르면 false 반환
+equalsIgnoreCase( )	대소문자 구분X
+toString( )		참조변수 출력시 자동호출,문자열 반환
+int length( )	문자열의 전체 길이 반환
+char charAt( )	인자값의 인덱스 문자 반환
+string trim( )	문자열 양끝 공백 제거
+boolean isEmpty	문자열 길이가 0인지 판단
+indexOf( )		인자로 지정된 문자가 시작되는 인덱스 반환
+lastIndexOf( )	끝에서부터 검색. 없으면 (null) -1 반환
+concat( )		새로운 문자열 추가	
+replace( )		기존 문자열 변경
+toLowerCase( )	대문자를 소문자로
+toUpperCase( )	소문자를 대문자로
+split( )		인자로 지정된 구분자로 문자열을 자른후 String[ ] 반환
+substring(시작위치, 끝위치)	원하는 문자열 일부분만 추출
+valueOf( )		기본타입과 참조타입을 String으로 변환

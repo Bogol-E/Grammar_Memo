@@ -1,0 +1,31 @@
+파이어베이스 Hosting
+http://nodejs.org/ko 노드js 설치
+1. cli 설치
+호스팅 폴더 이동
+npn install -g firebase-tools (nodejs에서 설치됨)
+
+2. firebase login 로그인 -> 구글이동 수락
+
+3. firebase init
+방향키로 첫번쨰 호스팅
+
+4. firebase init hosting 
+ index.html 이 있는 폴더 <.> 나머지 no
+
+5. firebase deploy
+배포하기
+
+ReAct인 경우
+1. npm run build
+소스 제외 실행 할수 있는 거만
+
+2. firebase init hosting
+
+3. 기존프로젝트 -> 프로젝트 선택 -> build폴더 나머지 no
+
+? What do you want to use as your public directory? build
+? Configure as a single-page app (rewrite all urls to /index.html)? Yes
+
+4. firebase deploy
+
+5. url 단축 https://bitly.com/
