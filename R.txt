@@ -17,15 +17,176 @@ xyplot(select | where, from)
 https://seaborn.pydata.org/ 그래프 확인
 
 데이터 str로 결측, 극단치 제거
-주요칼럼 정함 => 히스토그램(histro
-데이터 분포 => 산점도
-데이터 추세 => 라인그래프
+주요칼럼 정함 => 히스토그램 (연속)
+데이터 분포 => 산점도 (불연속)
+데이터 추세 => 라인그래프 
 학습없이 직관적으로 이해 가능
 
 tidyverse ggplot2	실제 r을 이용하는 이유
 install.packages("tidyverse")
 install.packages(("ggplot2"))
 단위값 형성
+데이터에 편향이 강하면 평군(mean) 보다 중위갑(median) 사용 
+
+회귀 : 값을 예측
+  단순회귀
+
+절차.
+1. 데이터 불러오기 확인 (시각확인)	데이터인상
+2-1. 전처리 (na처리)			clean_파일명
+2-2. 후처리 (표준화, 정규화)		
+3. 데이터 분리 (학습-검증)
+4. 학습 (기울기, 절편)
+5. 검증 (대상:모델) 
+
+1~2 대부분 비용 3~5 라이브러리에 의존
+
+통계 정규화 함의: 단위를 맞춤
+	최대 최소 기준두고 자름 (아웃라이어)
+	표준화 : 0~1사이 정규분포
+
+train 용과 test용 자료 7:3 정도 나눔
+랜덤을 여러번 나누면 하나의 데이터로 여러 테스트 만들어 과적합 검증 가능
+
+데이터베이스
+1정규화 : 데이터 중복 제거
+2함수가 자기자신 참조 X
+3연결
+
+베이스라인 - 디시전 트리 - 랜덤포레스트
+
+로지스틱회귀-분류
+단순회귀를 베이스라인으로 씀
+설명가능한 RMSE
+
+랜덤포레스트(설명가능, 전처리 안해도됨)
+XGboost 사이킷런 그레이디언트 부스팅 (박혜선)
+
+boost 종류는 중간에 matrix 만드는 과정 필요
+
+rmse를 낮게 만들기 위해 모델을 수정 (모델이해 필요)
+
+데이터 종류
+- 정형(테이블) => SQL
+- 비정형(테이블X) => 이미지, 사운드 => 신호
+- 시계열(테이블 : X축에 간격) =>
+	-시간만 독립변수
+	-자기상관 관계
+	-추세 경향성
+
+prophet << 페이스북이 시계열에 쓰는 프레임웍
+시계열 패키지에는 가짜날자 만들어 주는게 있을거임
+
+프로젝트
+ 회귀	캘리포니아
+ 분류	타이타닉
+ 시계열	코인 주식 아파트 홍수
+
+기획 => 일정관리(pm) =>
+ -프로젝트환경구성: 언어버전 ide,깃허브 관리기준
+
+파이선 (R의 Tidyverse)
+- Pandas		데이터전처리
+- Matplotlib
+- Scikit-learn		머신러닝(회귀/분류)
+- TF/Torch		회귀/분류	
+- prophet (시계열)
+
+pip freeze > a.txt
+cat a.txt
+pip uninstall -r a.txt -y
+pip --install wheel
+
+python -m venv venv	파이썬 가상환경 패키지
+.\venv\Scripts\activate	cotl shif P pytohn select interrpreter
+(venv) pip install numpy pandas seaborn
+
+$ python --version
+Python 3.10.11
+$ python -m venv venv
+# for Windows
+$ .\venv\Scripts\activate
+# for Linux/macOS
+$ source ./venv/bin/activate
+$ (venv) pip install -r requirements.txt
+
+<협업>
+1. 폴더만들기(한글X)
+2. venu, docker 파이썬 환경 격리
+3. 격리환경 활성화
+4. 알려진 폴더구조 사용
+
+
+파이선 하이퍼 파라미터 옵튜너 자동으로 잡아줘서 씀
+
+폴링허용(무한루프): 운영체제, 데이터겟, 펌웨어1
+
+파이썬 버젼 : 3.10.11 
+쿠다 버젼 : 11.2
+cudnn 버젼 : 8.1.0.77
+tensorflow 버젼 2.10.0
+----------------------------------------------------------------------
+로그인하기 귀찮으신분 받으세요
+cuda_11.2.0_460.89_win10 설치 폴더에 덮어쓰기
+
+#환경변수 설정(시스템속성 > 고급 > 환경변수)
+C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.2
+폴더에 있는 bin, include, lib 폴더를 path에 환경변수로 각각 하나식 추가합니다. 
+----------------------------------------------------------------------
+#tensorflow ver 2.10.0 설치
+pip install tensorflow== 2.10.0
+꼭 2.10.0 버젼으로 설치하세요!!
+다른버전으로 설치되어있으면 삭제후 설치하세요
+
+#tensor 버전 확인 명령어
+import tensorflow as tf
+print(tf.__version__)
+
+----------------------------------------------------------------------
+#GPU 설정 확인 명령어 아래와 같이 나오면 성공입니다.
+
+from tensorflow.python.client import device_lib
+print(device_lib.list_local_devices())
+
+----------------------------------------------------------------------
+[name: "/device:CPU:0"
+device_type: "CPU"
+memory_limit: 268435456
+locality {
+}
+incarnation: 6168916576099948030
+xla_global_id: -1
+, name: "/device:GPU:0"
+device_type: "GPU"
+memory_limit: 6277824512
+locality {
+bus_id: 1
+links {
+}
+}
+incarnation: 6970446025489979560
+physical_device_desc: "device: 0, name: NVIDIA GeForce RTX 2070, pci bus id: 0000:01:00.0, compute capability: 7.5"
+xla_global_id: 416903419
+]
+
+
+로컬서치 알고리즘 (중간결과 표현) 스레드!!!
+ - 식사하는 철학자 문제(공유자원할당)  => Queue
+ - 생산자/소비자 문제(공항 활주로 착륙) => DeQueue
+=> 데이터베이스, 운영체제
+
+Spring boot OAuth2
+
+
+
+
+
+
+
+
+
+
+
 
 
 
